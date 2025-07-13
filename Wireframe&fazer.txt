@@ -1,0 +1,19 @@
+wireframe fazer:
+-Pagina de dá feedback
+-Pagina de permitir o feedback
+-login de cliente
+-login de funcionario
+-pagina para os agendamentos(Only funcionario)
+-Pagina das massagens
+
+Talvez
+-Cada metodo de melhorar no dia a dia ter sua propria pagina com mais informação
+
+
+
+Site fazer:
+-Consertar o serviços
+-Consertar todos os textos
+-Colocar imagens melhores(Atualmente bugadas)
+-Deixar todos os carrosséis iguais(Deixar todos iguiais ao inicio)
+-Melhorar o texto do Serviço
