@@ -1,0 +1,147 @@
+<!DOCTYPE html>  
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agendamento</title>
+  <link href="assets/img/logo.png" rel="icon">
+  <link href="assets/img/logo.png" rel="apple-touch-icon">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/main.css" rel="stylesheet">
+  <style>
+    /* Header estilo */
+    header {
+      background-color: #0a0903;
+      padding: 10px 30px;
+    }
+
+    .logo-container {
+      display: flex;
+      justify-content: center; /* Centraliza a logo */
+      align-items: center;
+      width: 100%;
+      padding: 10px 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: white;
+      justify-content: center;
+    }
+
+    .logo img {
+      height: 35px; /* Logo menor */
+      margin-right: 10px;
+    }
+
+    .logo h1 {
+      font-size: 22px;
+      font-weight: bold;
+      margin: 0;
+    }
+  </style>
+</head>
+<body class="session-details-page">
+  <header>
+    <div class="logo-container">
+      <a href="index.html" class="logo">
+        <img src="assets/img/logo2.png" alt="Logo Flor de Lótus">
+
+      </a>
+    </div>
+  </header>
+
+  <div class="container mt-5">
+    <h2 class="text-center mb-4">Agende seu horário</h2>
+    <form>
+      <div class="mb-3">
+        <label for="nome" class="form-label">Nome completo</label>
+        <input type="text" class="form-control" id="nome" placeholder="Seu nome" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">E-mail</label>
+        <input type="email" class="form-control" id="email" placeholder="seuemail@exemplo.com" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="telefone" class="form-label">Telefone</label>
+        <input type="tel" class="form-control" id="telefone" placeholder="(xx) xxxxx-xxxx">
+      </div>
+
+      <div class="mb-3">
+        <label for="data" class="form-label">Data</label>
+        <input type="date" class="form-control" id="data" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="hora" class="form-label">Horário</label>
+        <input type="time" class="form-control" id="hora" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="servico" class="form-label">Serviço</label>
+        <select class="form-select" id="servico">
+          <option selected>Selecione um serviço</option>
+          <option value="consulta">Consulta</option>
+          <option value="retorno">Retorno</option>
+          <option value="outro">Outro</option>
+        </select>
+      </div>
+
+      <div class="mb-3" id="form-massagens" style="display: none;">
+        <label for="massagem" class="form-label">Tipo de Massagem</label>
+        <select class="form-select" id="massagem">
+          <option selected disabled>Selecione o tipo</option>
+          <option value="relaxante">Massagem Relaxante Terapêutica</option>
+          <option value="pedrasquentes">Massagem com Pedras Quentes</option>
+          <option value="podal">Reflexologia Podal</option>
+          <option value="tissue">Massagem Terapêutica Deep Tissue</option>
+          <option value="esporte">Massagem Esportiva</option>
+          <option value="bambu">Massagem com Bambu</option>
+          <option value="shiatsu">Shiatsu</option>
+          <option value="aroma">Massagem com Aromaterapia</option>
+        </select>
+      </div>
+
+      <script>
+        var campoServico = document.getElementById("servico");
+
+
+        campoServico.onchange = function () {
+          var campoMassagem = document.getElementById("form-massagens");
+          if (campoServico.value == "consulta") {
+
+            campoMassagem.style.display = "block";
+          } else {
+
+            campoMassagem.style.display = "none";
+          }
+        }
+      </script>
+
+      <div class="mb-3">
+        <h3>Formulário de Anamnese</h3>
+
+        <label class="form-label">Possui alguma doença crônica?</label>
+        <input type="text" class="form-control" placeholder="Digite aqui">
+
+        <label class="form-label mt-2">Está tomando algum medicamento?</label>
+        <input type="text" class="form-control" placeholder="Digite aqui">
+
+        <label class="form-label mt-2">Tem alergia a algum produto?</label>
+        <input type="text" class="form-control" placeholder="Digite aqui">
+
+        <label class="form-label mt-2">Observações adicionais</label>
+        <textarea class="form-control" rows="3" placeholder="Digite aqui"></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100">Agendar</button>
+    </form>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

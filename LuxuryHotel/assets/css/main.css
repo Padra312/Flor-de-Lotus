@@ -7430,10 +7430,107 @@ section,
     margin: 0 20px;
   }
 }
+/* Agendamento 2
+*/
+/* Estilos aplicam apenas se o body tiver a classe session-details-page */
+.session-details-page h2 {
+  font-weight: bold;
+  color: #2c3e50;
+}
 
+.session-details-page .container {
+  background-color: #f5f4f1;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  max-width: 600px;
+}
+
+.session-details-page .form-label {
+  font-weight: 600;
+  color: #34495e;
+}
+
+.session-details-page .form-control,
+.session-details-page .form-select {
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.session-details-page .form-control:focus,
+.session-details-page .form-select:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 0 0.2rem rgba(52,152,219,0.25);
+}
+
+.session-details-page .btn-primary {
+  background-color: #917a5a;
+  border-color: #917a5a;
+}
+
+.session-details-page .btn-primary:hover {
+  background-color: #917a5a;
+  border-color: #917a5a;
+}
 /*--------------------------------------------------------------
+# Agendamento 
+.session-details {
+  background-color: #882020; /* Cor de fundo específica  
+}
+
+.session-details form {
+  background-color: rgb(139, 124, 124);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+.session-details .btn-primary {
+  background-color: #2cad20;
+  border: none;
+} 
+
+.session-details .btn-primary:hover {
+  background-color: #dab617;
+}
+--------------------------------------------------------------*/
+/*
 # Starter Section Section
 --------------------------------------------------------------*/
 .starter-section {
   /* Add your styles here */
+}
+
+.pagina-login {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
+    min-height: 100vh; 
+    padding-top: 20px; 
+}
+
+.login-container {
+    display: flex;
+    background-color: #eaeaea;
+    width: 800px;
+    height: 600px;
+    margin: 0 auto; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border-radius: 20px; 
+    overflow: hidden; 
+}
+
+.login-form {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.side-panel {
+    flex: 1;
+    background-color: #996633;
 }
