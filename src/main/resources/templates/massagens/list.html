@@ -14,11 +14,12 @@
 	<!-- Barra de Navegação com Logout -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
 		<div class="container">
-			<a class="navbar-brand" th:href="@{/massagens}">Sistema de Massagens</a>
+			<a class="navbar-brand" th:href="@{/massagens}">Consultas agendadas </a>
 
 			<div class="navbar-nav me-auto">
-				<a class="nav-link" th:href="@{/massagens}">Massagens</a> 
-				<a class="nav-link" th:href="@{/categories}">Categoria</a>
+				<a class="nav-link" th:href="@{/massagens}">Consultas</a> 
+				<a class="nav-link" th:href="@{/categories}">Massagem</a>
+				<a class="nav-link" th:href="@{/profissionais}">Profissional</a>
 				<a class="nav-link" th:href="@{/users}">Usuários</a>
 			</div>
 
@@ -37,7 +38,7 @@
 	<!-- 🔍 FORMULÁRIO DE BUSCA -->
        <div class="card mb-4">
            <div class="card-header bg-primary text-white">
-               <i class="bi bi-search"></i> Buscar Massagens
+               <i class="bi bi-search"></i> Buscar Consultas
            </div>
            <div class="card-body">
                <form th:action="@{/massagens/buscar}" method="get" class="row g-3">
@@ -45,7 +46,7 @@
                        <input type="text"
                               name="descricao"
                               class="form-control"
-                              placeholder="Digite o nome do massagem..."
+                              placeholder="Digite o nome do cliente..."
                               th:value="${termoBuscado}">
                    </div>
                    <div class="col-md-4">
@@ -62,12 +63,12 @@
 	
 	
 		<h1 class="mb-4">
-			<i class="bi bi-box-seam"></i> Massagens Cadastrados
+			<i class="bi bi-box-seam"></i> Consultas Agendadas
 		</h1>
 
 		<!-- Botão para adicionar novo Massagem -->
 		<a th:href="@{/massagens/new}" class="btn btn-success mb-3"> <i
-			class="bi bi-plus-circle"></i> Adicionar Massagem
+			class="bi bi-plus-circle"></i> Adicionar Consulta
 		</a>
 
 		<table class="table table-striped table-hover">
@@ -108,8 +109,11 @@
 	  			    <td th:text="${massage.idMassagem}"></td>
 				<td><span th:if="${massage.categoria != null}"
 						th:text="${massage.categoria.nome}" class="badge bg-primary">
-					</span> <span th:unless="${massage.categoria != null}" class="text-muted">
-							Sem categoria </span></td>
+					</span> <span th:unless="${massage.categoria != null}" class="text-muted"> Sem categoria </span></td>
+					
+					<td><span th:if="${massage.profissional != null}"
+											th:text="${massage.profissional.nome}" class="badge bg-primary">
+										</span> <span th:unless="${massage.profissional != null}" class="text-muted"> Sem profissional </span></td>
 
 					<td th:text="${massage.descricao}"></td>
 					<td
@@ -130,7 +134,7 @@
 
 				<tr th:if="${massagens.empty}">
 					<td colspan="7" class="text-center text-muted"><i
-						class="bi bi-database-exclamation"></i> Nenhum massagem cadastrado.
+						class="bi bi-database-exclamation"></i> Nenhuma consulta cadastrado.
 						<a th:href="@{/massagens/new}">Clique aqui para criar o
 							primeiro.</a></td>
 				</tr>
@@ -146,7 +150,7 @@
 		<div class="modal-dialog modal-lg modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="modalMassageTitle">Visualização do Massagem</h5>
+					<h5 class="modal-title" id="modalMassageTitle">Visualização da Consulta</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>

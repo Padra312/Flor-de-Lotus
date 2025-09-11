@@ -3,7 +3,7 @@
 <head>
    <meta charset="UTF-8">
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-   <title>Editar Categoria</title>
+   <title>Editar Massagem</title>
 </head>
 <body>
    <div class="container mt-4">
@@ -12,7 +12,7 @@
               
                <!-- Cabeçalho -->
                <div class="d-flex justify-content-between align-items-center mb-4">
-                   <h1>✏️ Editar Categoria</h1>
+                   <h1>✏️ Editar Massagem</h1>
                    <a th:href="@{/categories}" class="btn btn-secondary">
                        ← Voltar
                    </a>
@@ -30,12 +30,11 @@
                   
                    <!-- Campo Nome -->
                    <div class="mb-3">
-                       <label class="form-label">Nome da Categoria *</label>
+                       <label class="form-label">Nome da Massagem *</label>
                        <input type="text"
                               class="form-control"
                               name="nome"
                               th:value="${category.nome}"
-                              placeholder="Ex: Material Escolar"
                               required
                               minlength="2">
                    </div>

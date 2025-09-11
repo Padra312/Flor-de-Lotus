@@ -4,7 +4,7 @@
    <meta charset="UTF-8">
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-   <title>Gestão de Categorias</title>
+   <title>Registro dos profissionais</title>
    <style>
        .navbar-brand {
            font-weight: bold;
@@ -35,19 +35,20 @@
                            <i class="bi bi-box"></i> Consultas
                        </a>
                    </li>
-				
-					   <li class="nav-item">
-		           <a class="nav-link" th:href="@{/categories}">
-				  <i class="bi bi-people"></i> Massagem
-					                   <li class="nav-item">
-					</a>
-                   </li>
+				   
+				  
 				   
 				   <li class="nav-item">
-				   	  <a class="nav-link" th:href="@{/profissionais}">
-				     <i class="bi bi-people"></i> Profissional
-				     </a>
-				</li>
+				      <a class="nav-link" th:href="@{/categories}">
+				        <i class="bi bi-people"></i> Massagem
+				 </a>
+					 </li>
+				 <li class="nav-item">
+				<a class="nav-link active" th:href="@{/profissionais}">
+				<i class="bi bi-tags"></i> Profissional
+			    </a>
+	           </li>
+
                    <li class="nav-item">
                        <a class="nav-link" th:href="@{/users}">
                            <i class="bi bi-people"></i> Usuários
@@ -70,18 +71,18 @@
    <div class="container">
        <!-- Cabeçalho -->
        <div class="d-flex justify-content-between align-items-center mb-4">
-           <h1><i class="bi bi-tags"></i> Massagens Cadastradas</h1>
-           <a th:href="@{/categories/new}" class="btn btn-success">
-               <i class="bi bi-plus-circle"></i> Nova Massagem
+           <h1><i class="bi bi-tags"></i> Profissionais Registrados</h1>
+           <a th:href="@{/profissionais/new}" class="btn btn-success">
+               <i class="bi bi-plus-circle"></i> Novo profissional
            </a>
        </div>
        <!-- 🔍 Formulário de Busca -->
        <div class="card mb-4">
            <div class="card-header bg-primary text-white">
-               <i class="bi bi-search"></i> Buscar Massagem
+               <i class="bi bi-search"></i> Buscar profissionais
            </div>
            <div class="card-body">
-               <form th:action="@{/categories/search}" method="get" class="row g-3">
+               <form th:action="@{/profissionais/search}" method="get" class="row g-3">
                    <div class="col-md-8">
                        <input type="text" name="nome" class="form-control"
                               placeholder="Digite o nome da categoria..."
@@ -91,7 +92,7 @@
                        <button type="submit" class="btn btn-primary me-2">
                            <i class="bi bi-search"></i> Buscar
                        </button>
-                       <a th:href="@{/categories}" class="btn btn-secondary">
+                       <a th:href="@{/profissionais}" class="btn btn-secondary">
                            <i class="bi bi-x-circle"></i> Limpar
                        </a>
                    </div>
@@ -100,29 +101,29 @@
        </div>
        <!-- 📊 Mensagens de Status -->
        <div th:if="${param.success}" class="alert alert-success alert-dismissible fade show">
-           <i class="bi bi-check-circle"></i> Massagem criada com sucesso!
+           <i class="bi bi-check-circle"></i> profissional registrado com sucesso!
            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
        </div>
       
        <div th:if="${param.updateSuccess}" class="alert alert-success alert-dismissible fade show">
-           <i class="bi bi-check-circle"></i> Massagem atualizada com sucesso!
+           <i class="bi bi-check-circle"></i> profissional atualizado com sucesso!
            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
        </div>
       
        <div th:if="${param.deleteSuccess}" class="alert alert-success alert-dismissible fade show">
-           <i class="bi bi-check-circle"></i> Massagem excluída com sucesso!
+           <i class="bi bi-check-circle"></i> profissional excluído com sucesso
            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
        </div>
        <!-- 🔍 Resultados da Busca -->
        <div th:if="${termoBuscado}" class="alert alert-info">
            <i class="bi bi-info-circle"></i>
            Buscando por: <strong th:text="${termoBuscado}"></strong>
-           - <span th:text="${categories.size()}"></span> massagem(s) encontrada(s)
+           - <span th:text="${profissionais.size()}"></span> profissional encontrado
        </div>
        <!-- 📋 Tabela de Categorias -->
        <div class="card">
            <div class="card-header bg-light">
-               <h5 class="mb-0">Lista de Massagens</h5>
+               <h5 class="mb-0">Lista de profissionais</h5>
            </div>
            <div class="card-body p-0">
                <table class="table table-striped table-hover mb-0">
@@ -135,41 +136,41 @@
                        </tr>
                    </thead>
                    <tbody>
-                       <tr th:each="category : ${categories}">
-                           <td th:text="${category.id}"></td>
+                       <tr th:each="profissional : ${profissionais}">
+                           <td th:text="${profissional.id}"></td>
                            <td>
-                               <strong th:text="${category.nome}"></strong>
+                               <strong th:text="${profissional.nome}"></strong>
                            </td>
                            <td>
-                               <span class="badge bg-secondary" th:text="${category.massagens.size()}"></span>
+                               <span class="badge bg-secondary" th:text="${profissional.massagens.size()}"></span>
                            </td>
                            <td>
                                <!-- Botão Editar -->
-                               <a th:href="@{/categories/edit/{id}(id=${category.id})}"
+                               <a th:href="@{/profissionais/edit/{id}(id=${profissional.id})}"
                                   class="btn btn-sm btn-warning me-2">
                                    <i class="bi bi-pencil"></i> Editar
                                </a>
                               
                                <!-- Botão Excluir -->
-                               <a th:href="@{/categories/delete/{id}(id=${category.id})}"
+                               <a th:href="@{/profissionais/delete/{id}(id=${profissional.id})}"
                                   class="btn btn-sm btn-danger"
-                                  th:onclick="'return confirm(\'Tem certeza que deseja excluir a categoria \\'' + ${category.nome} + '\\'?\\n\\nMassagens vinculados: ' + ${category.massagens.size()} + '\');'">
+                                  th:onclick="'return confirm(\'Tem certeza que deseja excluir a categoria \\'' + ${profissional.nome} + '\\'?\\n\\nMassagens vinculados: ' + ${profissional.massagens.size()} + '\');'">
                                    <i class="bi bi-trash"></i> Excluir
                                </a>
                            </td>
                        </tr>
                       
                        <!-- 📝 Mensagem se não houver categorias -->
-                       <tr th:if="${categories.empty}">
+                       <tr th:if="${profissionais.empty}">
                            <td colspan="4" class="text-center text-muted py-4">
                                <i class="bi bi-inbox" style="font-size: 2rem;"></i>
                                <p class="mt-2">
                                    <span th:if="${termoBuscado}">
-                                       Nenhuma massagem encontrada para "<span th:text="${termoBuscado}"></span>"
+                                       Nenhumo profissional encontrada para "<span th:text="${termoBuscado}"></span>"
                                    </span>
                                    <span th:unless="${termoBuscado}">
-                                       Nenhuma massagem cadastrada.
-                                       <a th:href="@{/categories/new}">Clique aqui para criar a primeira.</a>
+                                       Nenhuma profissional registrado.
+                                       <a th:href="@{/profissionais/new}">Clique aqui para criar a primeira.</a>
                                    </span>
                                </p>
                            </td>
@@ -183,15 +184,15 @@
            <div class="col-md-4">
                <div class="card text-center">
                    <div class="card-body">
-                       <h5 class="card-title" th:text="${categories.size()}">0</h5>
-                       <p class="card-text">Total de Categorias</p>
+                       <h5 class="card-title" th:text="${profissionais.size()}">0</h5>
+                       <p class="card-text">Total de profissionais</p>
                    </div>
                </div>
            </div>
            <div class="col-md-4">
                <div class="card text-center">
                    <div class="card-body">
-                       <h5 class="card-title" th:text="${categories.?[massagens.size() > 0].size()}">0</h5>
+                       <h5 class="card-title" th:text="${profissionais.?[massagens.size() > 0].size()}">0</h5>
                        <p class="card-text">Categorias com massagens</p>
                    </div>
                </div>
@@ -199,7 +200,7 @@
            <div class="col-md-4">
                <div class="card text-center">
                    <div class="card-body">
-                       <h5 class="card-title" th:text="${categories.?[massagens.size() == 0].size()}">0</h5>
+                       <h5 class="card-title" th:text="${profissionais.?[massagens.size() == 0].size()}">0</h5>
                        <p class="card-text">Categorias Vazias</p>
                    </div>
                </div>
