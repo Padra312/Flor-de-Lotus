@@ -1,0 +1,43 @@
+<head>
+    <meta charset="UTF-8">
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+   <title>Editar Massagem</title>
+</head>
+<body>
+   <div class="container mt-4">
+       <h1>Editar Massagem</h1>
+       <form th:action="@{/massagens/update/{id}(id=${massage.idMassagem})}"
+             th:object="${massage}" method="post">
+             <!-- Campo oculto para o ID -->
+             <input type="hidden" th:field="*{idMassagem}">
+          
+             <label class="form-label">Descrição</label>
+               <input type="text" class="form-control" th:field="*{descricao}" required>
+  <!-- Adicione este campo em categoria: -->
+			
+				<label class="form-label">Categoria *</label> <select
+					class="form-select" th:field="*{categoria}" required>
+					<option value="">Selecione uma categoria...</option>
+					<option th:each="cat : ${categories}" th:value="${cat.id}"
+						th:selected="${massage.categoria != null and massage.categoria.id == cat.id}"
+						th:text="${cat.nome}"></option>
+				</select>
+				<div class="text-danger" th:if="${#fields.hasErrors('categoria')}"
+					th:errors="*{categoria}"></div>
+
+               <label class="form-label">Valor</label>
+               <input type="number" step="0.01" class="form-control" th:field="*{valor}" required>
+         
+               <label class="form-label">URL da Imagem</label>
+				<input type="text" class="form-control" th:field="*{imagemUrl}"
+				placeholder="https://exemplo.com/imagem.jpg ou nome-do-arquivo.jpg">
+			<div class="form-text">Digite a URL completa da imagem ou
+				apenas o nome do arquivo se for fazer upload</div>
+               
+               
+           <button type="submit" class="btn btn-primary mt-5">Atualizar</button>
+           <a th:href="@{/massagens}" class="btn btn-secondary ms-2 mt-5">Cancelar</a>
+       </form>
+   </div>
+</body>
+</html>

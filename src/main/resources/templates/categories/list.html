@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+   <meta charset="UTF-8">
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+   <title>Gestão de Categorias</title>
+   <style>
+       .navbar-brand {
+           font-weight: bold;
+       }
+       .card-header {
+           font-weight: 500;
+       }
+       .table th {
+           font-weight: 600;
+       }
+   </style>
+</head>
+<body>
+   <!-- 🔹 NAVBAR - Igual ao do massagens -->
+   <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+       <div class="container">
+           <a class="navbar-brand" th:href="@{/}">
+               <i class="bi bi-shop"></i> Sistema de Massagens </a>
+          
+           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+               <span class="navbar-toggler-icon"></span>
+           </button>
+          
+           <div class="collapse navbar-collapse" id="navbarNav">
+               <ul class="navbar-nav me-auto">
+                   <li class="nav-item">
+                       <a class="nav-link" th:href="@{/massagens}">
+                           <i class="bi bi-box"></i> Massagens
+                       </a>
+                   </li>
+                   <li class="nav-item">
+                       <a class="nav-link active" th:href="@{/categories}">
+                           <i class="bi bi-tags"></i> Categorias
+                       </a>
+                   </li>
+                   <li class="nav-item">
+                       <a class="nav-link" th:href="@{/users}">
+                           <i class="bi bi-people"></i> Usuários
+                       </a>
+                   </li>
+               </ul>
+              
+               <div class="navbar-nav ms-auto">
+                   <span class="navbar-text text-light me-3">
+                       <i class="bi bi-person"></i>
+                       <span th:text="${session.userLogged.nome} ?: 'Usuário'"></span>
+                   </span>
+                   <a th:href="@{/logout}" class="btn btn-outline-light btn-sm">
+                       <i class="bi bi-box-arrow-right"></i> Sair
+                   </a>
+               </div>
+           </div>
+       </div>
+   </nav>
+   <div class="container">
+       <!-- Cabeçalho -->
+       <div class="d-flex justify-content-between align-items-center mb-4">
+           <h1><i class="bi bi-tags"></i> Categorias Cadastradas</h1>
+           <a th:href="@{/categories/new}" class="btn btn-success">
+               <i class="bi bi-plus-circle"></i> Nova Categoria
+           </a>
+       </div>
+       <!-- 🔍 Formulário de Busca -->
+       <div class="card mb-4">
+           <div class="card-header bg-primary text-white">
+               <i class="bi bi-search"></i> Buscar Categorias
+           </div>
+           <div class="card-body">
+               <form th:action="@{/categories/search}" method="get" class="row g-3">
+                   <div class="col-md-8">
+                       <input type="text" name="nome" class="form-control"
+                              placeholder="Digite o nome da categoria..."
+                              th:value="${termoBuscado}">
+                   </div>
+                   <div class="col-md-4">
+                       <button type="submit" class="btn btn-primary me-2">
+                           <i class="bi bi-search"></i> Buscar
+                       </button>
+                       <a th:href="@{/categories}" class="btn btn-secondary">
+                           <i class="bi bi-x-circle"></i> Limpar
+                       </a>
+                   </div>
+               </form>
+           </div>
+       </div>
+       <!-- 📊 Mensagens de Status -->
+       <div th:if="${param.success}" class="alert alert-success alert-dismissible fade show">
+           <i class="bi bi-check-circle"></i> Categoria criada com sucesso!
+           <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+       </div>
+      
+       <div th:if="${param.updateSuccess}" class="alert alert-success alert-dismissible fade show">
+           <i class="bi bi-check-circle"></i> Categoria atualizada com sucesso!
+           <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+       </div>
+      
+       <div th:if="${param.deleteSuccess}" class="alert alert-success alert-dismissible fade show">
+           <i class="bi bi-check-circle"></i> Categoria excluída com sucesso!
+           <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+       </div>
+       <!-- 🔍 Resultados da Busca -->
+       <div th:if="${termoBuscado}" class="alert alert-info">
+           <i class="bi bi-info-circle"></i>
+           Buscando por: <strong th:text="${termoBuscado}"></strong>
+           - <span th:text="${categories.size()}"></span> categoria(s) encontrada(s)
+       </div>
+       <!-- 📋 Tabela de Categorias -->
+       <div class="card">
+           <div class="card-header bg-light">
+               <h5 class="mb-0">Lista de Categorias</h5>
+           </div>
+           <div class="card-body p-0">
+               <table class="table table-striped table-hover mb-0">
+                   <thead class="table-dark">
+                       <tr>
+                           <th>ID</th>
+                           <th>Nome</th>
+                           <th>Quantidade de Massagens</th>
+                           <th>Ações</th>
+                       </tr>
+                   </thead>
+                   <tbody>
+                       <tr th:each="category : ${categories}">
+                           <td th:text="${category.id}"></td>
+                           <td>
+                               <strong th:text="${category.nome}"></strong>
+                           </td>
+                           <td>
+                               <span class="badge bg-secondary" th:text="${category.massagens.size()}"></span>
+                           </td>
+                           <td>
+                               <!-- Botão Editar -->
+                               <a th:href="@{/categories/edit/{id}(id=${category.id})}"
+                                  class="btn btn-sm btn-warning me-2">
+                                   <i class="bi bi-pencil"></i> Editar
+                               </a>
+                              
+                               <!-- Botão Excluir -->
+                               <a th:href="@{/categories/delete/{id}(id=${category.id})}"
+                                  class="btn btn-sm btn-danger"
+                                  th:onclick="'return confirm(\'Tem certeza que deseja excluir a categoria \\'' + ${category.nome} + '\\'?\\n\\nMassagens vinculados: ' + ${category.massagens.size()} + '\');'">
+                                   <i class="bi bi-trash"></i> Excluir
+                               </a>
+                           </td>
+                       </tr>
+                      
+                       <!-- 📝 Mensagem se não houver categorias -->
+                       <tr th:if="${categories.empty}">
+                           <td colspan="4" class="text-center text-muted py-4">
+                               <i class="bi bi-inbox" style="font-size: 2rem;"></i>
+                               <p class="mt-2">
+                                   <span th:if="${termoBuscado}">
+                                       Nenhuma categoria encontrada para "<span th:text="${termoBuscado}"></span>"
+                                   </span>
+                                   <span th:unless="${termoBuscado}">
+                                       Nenhuma categoria cadastrada.
+                                       <a th:href="@{/categories/new}">Clique aqui para criar a primeira.</a>
+                                   </span>
+                               </p>
+                           </td>
+                       </tr>
+                   </tbody>
+               </table>
+           </div>
+       </div>
+       <!-- 📊 Estatísticas Rápidas -->
+       <div class="row mt-4">
+           <div class="col-md-4">
+               <div class="card text-center">
+                   <div class="card-body">
+                       <h5 class="card-title" th:text="${categories.size()}">0</h5>
+                       <p class="card-text">Total de Categorias</p>
+                   </div>
+               </div>
+           </div>
+           <div class="col-md-4">
+               <div class="card text-center">
+                   <div class="card-body">
+                       <h5 class="card-title" th:text="${categories.?[massagens.size() > 0].size()}">0</h5>
+                       <p class="card-text">Categorias com massagens</p>
+                   </div>
+               </div>
+           </div>
+           <div class="col-md-4">
+               <div class="card text-center">
+                   <div class="card-body">
+                       <h5 class="card-title" th:text="${categories.?[massagens.size() == 0].size()}">0</h5>
+                       <p class="card-text">Categorias Vazias</p>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+   <!-- 📦 Scripts -->
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+  
+   <!-- ⚡ Script para melhorar a experiência -->
+   <script>
+       document.addEventListener('DOMContentLoaded', function() {
+           // Fecha automaticamente alerts após 5 segundos
+           setTimeout(() => {
+               const alerts = document.querySelectorAll('.alert');
+               alerts.forEach(alert => {
+                   const bsAlert = new bootstrap.Alert(alert);
+                   bsAlert.close();
+               });
+           }, 5000);
+       });
+   </script>
+</body>
+</html>
