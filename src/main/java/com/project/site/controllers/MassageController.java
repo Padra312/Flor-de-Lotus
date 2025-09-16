@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project.site.entities.Category;
 import com.project.site.entities.Massage;
+import com.project.site.entities.Profissional;
 import com.project.site.repositories.CategoryRepository;
 import com.project.site.repositories.MassageRepository;
+import com.project.site.repositories.ProfissionalRepository;
 
 import jakarta.validation.Valid;
 @Controller
@@ -25,6 +27,9 @@ import jakarta.validation.Valid;
 public class MassageController {
    @Autowired
    private MassageRepository repository;
+   
+   @Autowired
+   private ProfissionalRepository profissionalRepository;
   
    @Autowired
    private CategoryRepository categoryRepository;
@@ -56,9 +61,12 @@ public class MassageController {
    @GetMapping("/new")
    public String showAddForm(Model model) {
        List<Category> categories = categoryRepository.findAll();
+       List<Profissional> profissionais = profissionalRepository.findAll();
       
        model.addAttribute("massage", new Massage());
        model.addAttribute("categories", categories); // ⬅️ NOVO: Adiciona categorias ao modelo
+       model.addAttribute("profissional", new Profissional());
+       model.addAttribute("profissionais", profissionais);
        return "massagens/add-form";
    }
    @PostMapping("/save")

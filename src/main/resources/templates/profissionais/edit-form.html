@@ -3,7 +3,7 @@
 <head>
    <meta charset="UTF-8">
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-   <title>Editar Categoria</title>
+   <title>Editar Massagem</title>
 </head>
 <body>
    <div class="container mt-4">
@@ -12,7 +12,7 @@
               
                <!-- Cabeçalho -->
                <div class="d-flex justify-content-between align-items-center mb-4">
-                   <h1>✏️ Editar Categoria</h1>
+                   <h1>✏️ Editar Massagem</h1>
                    <a th:href="@{/profissionais}" class="btn btn-secondary">
                        ← Voltar
                    </a>
@@ -23,19 +23,18 @@
                    <span th:text="${error}"></span>
                </div>
                <!-- Formulário SIMPLES -->
-               <form th:action="@{/profissionais/update/{id}(id=${category.id})}" method="post">
+               <form th:action="@{/profissionais/update/{id}(id=${profissional.idProfissional})}" method="post">
                   
                    <!-- Campo ID (oculto) -->
-                   <input type="hidden" name="id" th:value="${category.id}">
+                   <input type="hidden" name="idProfissional" th:value="${profissional.idProfissional}">
                   
                    <!-- Campo Nome -->
                    <div class="mb-3">
-                       <label class="form-label">Nome da Categoria *</label>
+                       <label class="form-label">Nome da Massagem *</label>
                        <input type="text"
                               class="form-control"
                               name="nome"
-                              th:value="${category.nome}"
-                              placeholder="Ex: Material Escolar"
+                              th:value="${profissional.nome}"
                               required
                               minlength="2">
                    </div>
@@ -43,8 +42,8 @@
                    <div class="card mb-3">
                        <div class="card-body">
                            <h6>Informações:</h6>
-                           <p class="mb-1">ID: <strong th:text="${category.id}"></strong></p>
-                           <p class="mb-0">Massagens vinculados: <strong th:text="${category.massagens.size()}"></strong></p>
+                           <p class="mb-1">ID: <strong th:text="${profissional.idProfissional}"></strong></p>
+                           <p class="mb-0">Massagens vinculados: <strong th:text="${profissional.massagens.size()}"></strong></p>
                        </div>
                    </div>
                    <!-- Botões -->

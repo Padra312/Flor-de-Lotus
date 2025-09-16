@@ -17,23 +17,28 @@ public class Massage {
 	private Long idMassagem;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "categoria_id", nullable = false)
+	@JoinColumn(name = "categoria_id", referencedColumnName = "id", nullable = false)
 	private Category categoria;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "profissional_id", referencedColumnName = "idProfissional", nullable = false)
+	private Profissional profissional;
 	@Column(nullable = false)
 	private String descricao;
 	@Column(nullable = false)
 	private double valor;
-
+	@Column(nullable = false)
 	private String imagemUrl;
-
+	
 	public Massage() {
 		super();
 	}
 
-	public Massage(Long idMassagem, Category categoria, String descricao, double valor, String imagemUrl) {
+	public Massage(Long idMassagem, Category categoria, Profissional profissional, String descricao, double valor,
+			String imagemUrl) {
 		super();
 		this.idMassagem = idMassagem;
 		this.categoria = categoria;
+		this.profissional = profissional;
 		this.descricao = descricao;
 		this.valor = valor;
 		this.imagemUrl = imagemUrl;
@@ -53,6 +58,14 @@ public class Massage {
 
 	public void setCategoria(Category categoria) {
 		this.categoria = categoria;
+	}
+
+	public Profissional getProfissional() {
+		return profissional;
+	}
+
+	public void setProfissional(Profissional profissional) {
+		this.profissional = profissional;
 	}
 
 	public String getDescricao() {
@@ -77,7 +90,7 @@ public class Massage {
 
 	public void setImagemUrl(String imagemUrl) {
 		this.imagemUrl = imagemUrl;
-	} 
-	
+	}
+
 	
 }
