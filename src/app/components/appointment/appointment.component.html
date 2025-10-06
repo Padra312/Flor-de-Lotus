@@ -1,0 +1,127 @@
+
+<main class="main">
+
+    <!-- ======= Título da Página ======= -->
+    <div class="page-title dark-background" data-aos="fade" style="background-image: url(assets/img/hotel/showcase-7.webp);">
+      <div class="container position-relative">
+        <h1>Agendamento</h1>
+        <p>Agende sua massagem e escolha o melhor horário para você.</p>
+        <nav class="breadcrumbs">
+          <ol>
+            <li><a href="index.html">Início</a></li>
+            <li class="current">Agendamento</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+    <!-- ======= Fim Título ======= -->
+
+    <!-- ======= Seção de Agendamento ======= -->
+    <section id="booking" class="booking section">
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="booking-widget p-4 shadow rounded">
+              <div class="booking-header text-center mb-4">
+                <h3>Agende seu horário</h3>
+                <p>Preencha os campos abaixo para marcar seu atendimento.</p>
+              </div>
+
+              <!-- Formulário atualizado -->
+              <form>
+                <!-- Nome -->
+                <div class="mb-3">
+                  <label for="nome" class="form-label">Nome completo</label>
+                  <input type="text" class="form-control" id="nome" placeholder="Seu nome" required>
+                </div>
+
+                <!-- Email -->
+                <div class="mb-3">
+                  <label for="email" class="form-label">E-mail</label>
+                  <input type="email" class="form-control" id="email" placeholder="seuemail@exemplo.com" required>
+                </div>
+
+                <!-- Telefone -->
+                <div class="mb-3">
+                  <label for="telefone" class="form-label">Telefone</label>
+                  <input type="tel" class="form-control" id="telefone" placeholder="(xx) xxxxx-xxxx">
+                </div>
+
+                <!-- Data -->
+                <div class="mb-3">
+                  <label for="data" class="form-label">Data</label>
+                  <input type="date" class="form-control" id="data" required>
+                </div>
+
+                <!-- Hora -->
+                <div class="mb-3">
+                  <label for="hora" class="form-label">Horário</label>
+                  <input type="time" class="form-control" id="hora" required>
+                </div>
+
+                <!-- Serviço -->
+                <div class="mb-3">
+                  <label for="servico" class="form-label">Serviço</label>
+                  <select class="form-select" id="servico">
+                    <option selected>Selecione um serviço</option>
+                    <option value="consulta">Consulta</option>
+                    <option value="retorno">Retorno</option>
+                    <option value="outro">Outro</option>
+                  </select>
+                </div>
+
+                <!-- Tipos de Massagem -->
+                <div class="mb-3" id="form-massagens" style="display: none;">
+                  <label for="massagem" class="form-label">Tipo de Massagem</label>
+                  <select class="form-select" id="massagem">
+                    <option selected disabled>Selecione o tipo</option>
+                    <option value="relaxante">Massagem Relaxante Terapêutica</option>
+                    <option value="pedrasquentes">Massagem com Pedras Quentes</option>
+                    <option value="podal">Reflexologia Podal</option>
+                    <option value="tissue">Massagem Terapêutica Deep Tissue</option>
+                    <option value="esporte">Massagem Esportiva</option>
+                    <option value="bambu">Massagem com Bambu</option>
+                    <option value="shiatsu">Shiatsu</option>
+                    <option value="aroma">Massagem com Aromaterapia</option>
+                  </select>
+                </div>
+
+                <!-- Script para Exibir Tipos de Massagem -->
+                <script>
+                  const campoServico = document.getElementById("servico");
+                  campoServico.onchange = function () {
+                    const campoMassagem = document.getElementById("form-massagens");
+                    campoMassagem.style.display = campoServico.value === "consulta" ? "block" : "none";
+                  };
+                </script>
+
+                <!-- Anamnese -->
+                <div class="mb-3">
+                  <h3>Formulário de Anamnese</h3>
+
+                  <label class="form-label">Possui alguma doença crônica?</label>
+                  <input type="text" class="form-control" placeholder="Digite aqui">
+
+                  <label class="form-label mt-2">Está tomando algum medicamento?</label>
+                  <input type="text" class="form-control" placeholder="Digite aqui">
+
+                  <label class="form-label mt-2">Tem alergia a algum produto?</label>
+                  <input type="text" class="form-control" placeholder="Digite aqui">
+
+                  <label class="form-label mt-2">Observações adicionais</label>
+                  <textarea class="form-control" rows="3" placeholder="Digite aqui"></textarea>
+                </div>
+
+                <!-- Botão -->
+                <button type="submit" class="btn-getstarted">Agendar</button>
+              </form>
+              <!-- Fim do Formulário -->
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ======= Fim da Seção ======= -->
+
+  </main>
