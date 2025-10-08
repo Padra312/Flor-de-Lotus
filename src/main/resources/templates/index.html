@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loja de Massagens Escolares</title>
+
+<!-- Bootstrap CSS -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+
+<!-- Bootstrap Icons -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+
+<link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+<body>
+	<!-- 🔹 NAVBAR Bootstrap -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+		<div class="container">
+			<a class="navbar-brand fw-bold" href="/"> <i
+				class="bi bi-backpack-fill me-2"></i>EscolaStore
+			</a>
+
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarNav">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav ms-auto">
+					<li class="nav-item"><a class="nav-link" href="#massagens">
+							<i class="bi bi-grid-fill me-1"></i>Massagens
+					</a></li>
+					<li class="nav-item"><a class="nav-link" href="/massagens">
+							<i class="bi bi-gear-fill me-1"></i>Área Admin
+					</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- 🔹 HERO SECTION com Bootstrap -->
+	<section class="hero-bg text-white py-5">
+		<div class="container py-5">
+			<div class="row align-items-center">
+				<div class="col-lg-6">
+					<h1 class="display-4 fw-bold mb-4">
+						<i class="bi bi-backpack-fill"></i> Material Escolar de Qualidade
+					</h1>
+					<p class="lead mb-4">Tudo que você precisa para o ano letivo
+						com os melhores preços!</p>
+					<a href="#massagens" class="btn btn-light btn-lg"> <i
+						class="bi bi-arrow-down"></i> Ver Massagens
+					</a>
+				</div>
+				<div class="col-lg-6 text-center">
+					<i class="bi bi-basket-fill" style="font-size: 8rem; opacity: 0.8;"></i>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- 🔹 CATEGORIAS com Bootstrap Cards -->
+	<section class="py-5 bg-light">
+		<div class="container">
+			<h2 class="text-center mb-5">Categorias em Destaque</h2>
+			<div class="row g-4">
+				<div class="col-md-3 col-6">
+					<div class="card text-center border-0 shadow-sm">
+						<div class="card-body py-4">
+							<i class="bi bi-journal-text text-primary"
+								style="font-size: 2rem;"></i>
+							<h5 class="card-title mt-3">Cadernos</h5>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-6">
+					<div class="card text-center border-0 shadow-sm">
+						<div class="card-body py-4">
+							<i class="bi bi-pencil text-success" style="font-size: 2rem;"></i>
+							<h5 class="card-title mt-3">Escritura</h5>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-6">
+					<div class="card text-center border-0 shadow-sm">
+						<div class="card-body py-4">
+							<i class="bi bi-bag text-warning" style="font-size: 2rem;"></i>
+							<h5 class="card-title mt-3">Mochilas</h5>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-6">
+					<div class="card text-center border-0 shadow-sm">
+						<div class="card-body py-4">
+							<i class="bi bi-scissors text-danger" style="font-size: 2rem;"></i>
+							<h5 class="card-title mt-3">Artes</h5>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- 🔹 PRODUTOS com Bootstrap Cards -->
+	<section id="massagens" class="py-5">
+		<div class="container">
+			<h2 class="text-center mb-5">Nossas Massages</h2>
+
+			<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+				<div th:each="massage : ${massagens}" class="col">
+					<div class="card massage-card h-100 border-0 shadow">
+						<!-- Imagem do Produto -->
+						<div class="text-center p-4 bg-light">
+							<img th:if="${massage.imagemUrl}"
+								th:src="${massage.imagemUrl.startsWith('http')} ?
+                                        ${massage.imagemUrl} :
+                                        @{'/images/massagens/' + ${massage.imagemUrl}}"
+								class="img-fluid" style="height: 180px; object-fit: contain;"
+								th:alt="${massage.descricao}">
+							<div th:unless="${massage.imagemUrl}" class="text-muted py-4">
+								<i class="bi bi-image" style="font-size: 3rem;"></i>
+								<p class="mt-2">Sem imagem</p>
+							</div>
+						</div>
+
+						<div class="card-body">
+							<!-- Categoria -->
+							<span class="badge bg-primary mb-2"
+								th:text="${massage.categoria}"></span>
+
+							<!-- Descrição -->
+							<h5 class="card-title" th:text="${massage.descricao}"></h5>
+
+							<!-- Preço -->
+							<div
+								class="d-flex justify-content-between align-items-center mt-3">
+								<span class="h4 text-success mb-0"> R$ <span
+									th:text="${#numbers.formatDecimal(massage.valor, 1, 2, 'POINT')}"></span>
+								</span> <span class="badge bg-secondary"> <i class="bi bi-box"></i>
+								</span>
+							</div>
+						</div>
+
+						<div class="card-footer bg-white border-0">
+							<div class="d-grid">
+								<button class="btn btn-outline-primary">
+									<i class="bi bi-cart-plus"></i> Adicionar ao Carrinho
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Mensagem sem produtos -->
+			<div th:if="${massagens.empty}" class="text-center py-5">
+				<div class="alert alert-info">
+					<i class="bi bi-info-circle"></i>
+					<h4>Nenhum Massagem disponível</h4>
+					<p>Volte em breve para conferir nossas novidades!</p>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- 🔹 FOOTER Bootstrap -->
+	<footer class="bg-dark text-light py-4 mt-5">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4 mb-3">
+					<h5>
+						<i class="bi bi-backpack-fill"></i> EscolaStore
+					</h5>
+					<p>Sua loja de material escolar de confiança</p>
+				</div>
+				<div class="col-md-4 mb-3">
+					<h5>Contato</h5>
+					<p>
+						<i class="bi bi-telephone"></i> (11) 9999-9999
+					</p>
+					<p>
+						<i class="bi bi-envelope"></i> contato@escolastore.com
+					</p>
+				</div>
+				<div class="col-md-4 mb-3">
+					<h5>Redes Sociais</h5>
+					<div class="d-flex gap-3">
+						<a href="#" class="text-light"><i class="bi bi-facebook"
+							style="font-size: 1.5rem;"></i></a> <a href="#" class="text-light"><i
+							class="bi bi-instagram" style="font-size: 1.5rem;"></i></a> <a
+							href="#" class="text-light"><i class="bi bi-whatsapp"
+							style="font-size: 1.5rem;"></i></a>
+					</div>
+				</div>
+			</div>
+			<hr class="my-4">
+			<p class="text-center mb-0">&copy; 2024 EscolaStore. Todos os
+				direitos reservados.</p>
+		</div>
+	</footer>
+	<!-- 🔹 JavaScript do Bootstrap -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
