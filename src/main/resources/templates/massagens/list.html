@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+	<link th:href="@{/css/style.css}" rel="stylesheet">
+<title>Tabela de Massagens</title>
+</head>
+<body>
+	<!-- Barra de Navegação com Logout -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+		<div class="container">
+			<a class="navbar-brand" th:href="@{/massagens}">Consultas agendadas </a>
+
+			<div class="navbar-nav me-auto">
+				<a class="nav-link active" th:href="@{/massagens}">Consultas</a> 
+				<a class="nav-link" th:href="@{/categories}">Massagem</a>
+				<a class="nav-link" th:href="@{/profissionais}">Profissional</a>
+				<a class="nav-link" th:href="@{/users}">Usuários</a>
+			</div>
+
+			<div class="navbar-nav ms-auto">
+				<span class="navbar-text text-light me-3"> <i
+					class="bi bi-person"></i> <span
+					th:text="${session.userLogged.nome} ?: 'Usuário'"></span>
+				</span> <a th:href="@{/logout}" class="btn btn-outline-light btn-sm"> <i
+					class="bi bi-box-arrow-right"></i> Sair
+				</a>
+			</div>
+		</div>
+	</nav>
+	
+	<div class="container">
+	<!-- 🔍 FORMULÁRIO DE BUSCA -->
+       <div class="card mb-4">
+           <div class="card-header bg-secondary text-white">
+               <i class="bi bi-search"></i> Buscar Consultas
+           </div>
+           <div class="card-body">  <!-- Eu mexi o buscar aqui-->
+			<form th:action="@{/massagens/buscar}" method="get" class="row g-3">
+
+			    <div class="col-md-3">
+			        <input type="text" name="cliente" class="form-control" placeholder="Cliente...">
+			    </div>
+
+			    <div class="col-md-3">
+			        <select name="profissional" class="form-select">
+			            <option value="">Todos profissionais</option>
+			            <option th:each="p : ${profissionais}" th:value="${p.idProfissional}" th:text="${p.nome}"></option>
+			        </select>
+			    </div>
+
+			    <div class="col-md-2">
+			        <input type="date" name="dia" class="form-control">
+			    </div>
+
+			    <div class="col-md-2">
+			        <input type="time" name="hora" class="form-control">
+			    </div>
+
+			    <div class="col-md-2">
+			        <button type="submit" class="btn btn-primary w-100">
+			            <i class="bi bi-search"></i> Buscar
+			        </button>
+			    </div>
+			</form>
+
+           </div>
+       </div>
+	
+	
+		<h1 class="mb-4">
+			<i class="bi bi-book"></i> Consultas Agendadas
+		</h1>
+
+		<a th:href="@{/massagens/new}" class="btn btn-success mb-3"> <i
+			class="bi bi-plus-circle"></i> Adicionar Consulta
+		</a>
+
+		<table class="table table-striped table-hover"> <!--foi aqui o table dark-->
+			<thead class="table-dark">
+			    <tr>
+			        <th>ID</th>
+			        <th>Massagem</th>
+			        <th>Profissional</th>
+			        <th>Cliente</th>
+			        <th>Dia</th>
+			        <th>Hora</th>
+			        <th>Valor</th>
+			        <th>Ações</th>
+			    </tr>
+			</thead>
+			<tbody>
+			    <tr th:each="massage : ${massagens}">
+			        <td th:text="${massage.idMassagem}"></td>
+			        <td th:text="${massage.categoria.nome}"></td>
+			        <td th:text="${massage.profissional.nome}"></td>
+			        <td th:text="${massage.descricao}"></td>
+			        <td th:text="${massage.dia}"></td>
+			        <td th:text="${massage.hora}"></td>
+			        <td th:text="'R$ ' + ${#numbers.formatDecimal(massage.valor, 1, 2, 'POINT')}"></td>
+					<td>
+											<!-- Botão Editar --> <a
+											th:href="@{/massagens/edit/{id}(id=${massage.idMassagem})}"
+											class="btn btn-sm btn-warning me-2"> <i class="bi bi-pencil"></i>
+												Editar
+										</a> <!-- Botão Excluir --> <a
+											th:href="@{/massagens/delete/{id}(id=${massage.idMassagem})}"
+											class="btn btn-sm btn-danger"
+											onclick="return confirm('Tem certeza que deseja excluir este massagem?')">
+												<i class="bi bi-trash"></i> Excluir
+										</a>
+										</td>
+			    </tr>
+			</tbody>
+
+		</table>
+	</div>
+	<!-- Scripts Bootstrap -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- Modal para visualização ampliada da imagem -->
+	
+	
+	
+	<!-- Script para o modal -->
+<script th:src="@{/js/script.js}"></script>
+
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>  
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agendamento</title>
+  <link th:href="@{/img/logo.png}" rel="icon">
+  <link th:href="@{/img/logo.png}" rel="apple-touch-icon">
+  <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css}" rel="stylesheet">
+  <link th:href="@{/css/main.css}" rel="stylesheet">
+  <style>
+    header {
+      background-color: #0a0903;
+      padding: 10px 30px;
+    }
+
+    .logo-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      padding: 10px 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: white;
+      justify-content: center;
+    }
+
+    .logo img {
+      height: 35px;
+      margin-right: 10px;
+    }
+
+    .logo h1 {
+      font-size: 22px;
+      font-weight: bold;
+      margin: 0;
+    }
+  </style>
+</head>
+<body class="session-details-page">
+  <header>
+    <div class="logo-container">
+      <a th:href="@{index}" class="logo">
+        <img th:src="@{/img/logo2.png}" alt="Logo Flor de Lótus">
+      </a>
+    </div>
+  </header>
+
+  <div class="container mt-5">
+    <h2 class="text-center mb-4">Agende seu horário</h2>
+
+    <!-- FORMULÁRIO -->
+    <form id="formAgendamento">
+      <div class="mb-3">
+        <label for="nome" class="form-label">Nome completo</label>
+        <input type="text" class="form-control" id="nome" placeholder="Seu nome" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">E-mail</label>
+        <input type="email" class="form-control" id="email" placeholder="seuemail@exemplo.com" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="telefone" class="form-label">Telefone</label>
+        <input type="tel" class="form-control" id="telefone" placeholder="(xx) xxxxx-xxxx">
+      </div>
+
+      <div class="mb-3">
+        <label for="data" class="form-label">Data</label>
+        <input type="date" class="form-control" id="data" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="hora" class="form-label">Horário</label>
+        <input type="time" class="form-control" id="hora" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="servico" class="form-label">Serviço</label>
+        <select class="form-select" id="servico">
+          <option selected>Selecione um serviço</option>
+          <option value="massagem">Massagem</option>
+          <option value="consulta">Consulta</option>
+          <option value="retorno">Retorno</option>
+          <option value="outro">Outro</option>
+        </select>
+      </div>
+
+      <div class="mb-3" id="form-massagens" style="display: none;">
+        <label for="massagem" class="form-label">Tipo de Massagem</label>
+        <select class="form-select" id="massagem">
+          <option selected disabled>Selecione o tipo</option>
+          <option value="Relaxante Terapêutica">Massagem Relaxante Terapêutica</option>
+          <option value="Pedras Quentes">Massagem com Pedras Quentes</option>
+          <option value="Reflexologia Podal">Reflexologia Podal</option>
+          <option value="Deep Tissue">Massagem Terapêutica Deep Tissue</option>
+          <option value="Esportiva">Massagem Esportiva</option>
+          <option value="Bambu">Massagem com Bambu</option>
+          <option value="Shiatsu">Shiatsu</option>
+          <option value="Aromaterapia">Massagem com Aromaterapia</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <h3>Formulário de Anamnese</h3>
+
+        <label class="form-label">Possui alguma doença crônica?</label>
+        <input type="text" class="form-control" id="doenca" placeholder="Digite aqui">
+
+        <label class="form-label mt-2">Está tomando algum medicamento?</label>
+        <input type="text" class="form-control" id="medicamento" placeholder="Digite aqui">
+
+        <label class="form-label mt-2">Tem alergia a algum produto?</label>
+        <input type="text" class="form-control" id="alergia" placeholder="Digite aqui">
+
+        <label class="form-label mt-2">Observações adicionais</label>
+        <textarea class="form-control" id="observacoes" rows="3" placeholder="Digite aqui"></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100">Agendar</button>
+    </form>
+  </div>
+
+  <!-- Script de exibição de tipos de massagem -->
+  <script>
+    var campoServico = document.getElementById("servico");
+    campoServico.onchange = function () {
+      var campoMassagem = document.getElementById("form-massagens");
+      campoMassagem.style.display = (campoServico.value === "massagem") ? "block" : "none";
+    };
+  </script>
+
+  <!-- Script de envio para o WhatsApp -->
+  <script>
+    document.getElementById('formAgendamento').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const nome = document.getElementById('nome').value;
+      const email = document.getElementById('email').value;
+      const telefone = document.getElementById('telefone').value;
+      const data = document.getElementById('data').value;
+      const hora = document.getElementById('hora').value;
+      const servico = document.getElementById('servico').value;
+      const massagem = document.getElementById('massagem') ? document.getElementById('massagem').value : "";
+      const doenca = document.getElementById('doenca').value;
+      const medicamento = document.getElementById('medicamento').value;
+      const alergia = document.getElementById('alergia').value;
+      const observacoes = document.getElementById('observacoes').value;
+
+      // 🔹 Coloque o número da clínica aqui (ex: 55 + DDD + número)
+      const numero = "5521989996394";
+
+      // 🧾 Monta a mensagem
+      let mensagem = `🌸 *Agendamento Flor de Lótus* 🌸\n\n`;
+      mensagem += `*Nome:* ${nome}\n`;
+      mensagem += `*E-mail:* ${email}\n`;
+      mensagem += `*Telefone:* ${telefone}\n`;
+      mensagem += `*Data:* ${data}\n`;
+      mensagem += `*Hora:* ${hora}\n`;
+      mensagem += `*Serviço:* ${servico}\n`;
+      if (massagem) mensagem += `*Tipo de Massagem:* ${massagem}\n`;
+      mensagem += `\n🩺 *Anamnese:*\n`;
+      mensagem += `- Doença crônica: ${doenca}\n`;
+      mensagem += `- Medicamento: ${medicamento}\n`;
+      mensagem += `- Alergia: ${alergia}\n`;
+      mensagem += `- Observações: ${observacoes}\n`;
+
+      // Cria o link do WhatsApp
+      const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
+
+      // Abre o WhatsApp (web ou app)
+      window.open(url, '_blank');
+    });
+  </script>
+
+  <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

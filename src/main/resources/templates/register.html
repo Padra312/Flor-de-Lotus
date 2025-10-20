@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Cadastro</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* Variáveis de cor do tema */
+    :root {
+      --background-color: #f5f4f1;
+      --default-color: #212529;
+      --heading-color: #32220b;
+      --accent-color: #917a5a;
+      --surface-color: #ffffff;
+    }
+
+    /* Fundo com imagem e camada suave */
+    body {
+      background: 
+        linear-gradient(rgba(145, 122, 90, 0.45), rgba(145, 122, 90, 0.45)),
+        url('https://cdn.pixabay.com/photo/2017/07/25/19/19/lotus-2539498_1280.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Poppins', sans-serif;
+      color: #32220b;
+    }
+
+    /* Container do cadastro */
+    .register-container {
+      background: var(--surface-color);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.25);
+      margin-top: 80px;
+      backdrop-filter: blur(6px);
+      transition: transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+    .register-container:hover {
+      transform: scale(1.02);
+      box-shadow: 0 8px 35px rgba(0, 0, 0, 0.3);
+    }
+
+    h2 {
+      color: var(--heading-color);
+      font-weight: 700;
+    }
+
+    label {
+      color: var(--default-color);
+      font-weight: 500;
+    }
+
+    /* Botões */
+    .btn-custom {
+      background-color: var(--accent-color);
+      color: var(--surface-color);
+      font-weight: 600;
+      border: none;
+      transition: all 0.3s ease;
+    }
+
+    .btn-custom:hover {
+      background-color: #7c6747; /* versão escura do accent-color */
+      transform: scale(1.03);
+    }
+
+    /* Link para login */
+    a.link-login {
+      color: var(--accent-color);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    a.link-login:hover {
+      text-decoration: underline;
+    }
+
+    /* Mensagens de alerta */
+    .alert {
+      text-align: left;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-5 register-container text-center">
+        <h2 class="mb-4">Crie sua Conta</h2>
+
+        <!-- Mensagem de erro/sucesso -->
+        <div th:if="${param.success}" class="alert alert-success">
+          Cadastro realizado com sucesso! Faça login para continuar.
+        </div>
+        <div th:if="${param.error}" class="alert alert-danger">
+          Erro ao criar conta. Verifique os campos e tente novamente.
+        </div>
+
+        <!-- Formulário de cadastro -->
+        <form th:action="@{/users/register}" method="post">
+          <div class="mb-3 text-start">
+            <label class="form-label">Nome Completo</label>
+            <input type="text" name="nome" class="form-control" required>
+          </div>
+          <div class="mb-3 text-start">
+            <label class="form-label">Email</label>
+            <input type="email" name="email" class="form-control" required>
+          </div>
+          <div class="mb-3 text-start">
+            <label class="form-label">Senha</label>
+            <input type="password" name="senha" class="form-control" required>
+          </div>
+          <div class="mb-4 text-start">
+            <label class="form-label">Confirmar Senha</label>
+            <input type="password" name="confirmarSenha" class="form-control" required>
+          </div>
+          <button type="submit" class="btn btn-custom w-100 mb-3">Cadastrar</button>
+        </form>
+
+        <!-- Link para login -->
+        <p>Já tem uma conta? <a th:href="@{/login}" class="link-login">Entrar</a></p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

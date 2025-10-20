@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Agendamento - Flor de Lótus Massoterapia</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+
+  <link th:href="@{/img/logo.png}" rel="icon">
+  <link th:href="@{/img/logo.png}" rel="apple-touch-icon">
+
+
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+
+  <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+  <link th:href="@{/vendor/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet">
+  <link th:href="@{/vendor/swiper/swiper-bundle.min.css}" rel="stylesheet">
+  <link th:href="@{/vendor/glightbox/css/glightbox.min.css}" rel="stylesheet">
+  <link th:href="@{/vendor/drift-zoom/drift-basic.css}" rel="stylesheet">
+
+  <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css}" rel="stylesheet">
+    
+    <link th:href="@{/css/main.css}" rel="stylesheet">
+
+
+</head>
+
+<body class="booking-page">
+
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container position-relative d-flex align-items-center justify-content-between">
+
+      <a th:href="@{index}" class="logo d-flex align-items-center me-auto me-xl-0">
+       <img th:src="@{/img/logo2.png}" alt="">
+        <h1 class="sitename">Flor de Lótus</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <a class="nav-link" th:href="@{/index}">Inicio</a>
+          <a class="nav-link" th:href="@{/about}">Sobre</a>
+          <li><a href="amenities.html"class="active">Serviços</a></li>
+          <a class="nav-link" th:href="@{/location}">Localização</a>
+
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+      <a class="btn-getstarted d-none d-sm-block" th:href="@{session_details}">Agende Agora</a>
+
+    </div>
+  </header>
+
+  <main class="main">
+
+
+    <div class="page-title dark-background" data-aos="fade" style="background-image: url(assets/img/hotel/showcase-7.webp);">
+      <div class="container position-relative">
+        <h1>Agendamento</h1>
+        <p>Agende sua massagem e escolha o melhor horário para você.</p>
+        <nav class="breadcrumbs">
+          <ol>
+            <li><a th:href="@{index}">Início</a></li>
+            <li class="current">Agendamento</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+
+
+    <section id="booking" class="booking section">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="booking-widget">
+              <div class="booking-header text-center">
+                <h3>Encontre o Melhor Horário para Você</h3>
+                <p>Escolha a data e descubra nossos horários disponíveis com os melhores profissionais</p>
+              </div>
+
+              <form class="booking-form" action="" method="POST">
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="check-in-date">Data do Atendimento</label>
+                      <input type="date" class="form-control" id="check-in-date" name="check_in" required="">
+                      <small class="text-muted">Selecione a data desejada</small>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="check-out-date">Data de Saída</label>
+                      <input type="date" class="form-control" id="check-out-date" name="check_out" required="">
+                      <small class="text-muted">Selecione a data final (se aplicável)</small>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label for="adults">Adultos</label>
+                      <select class="form-select" id="adults" name="adults" required="">
+                        <option value="">Adultos</option>
+                        <option value="1">1 Adulto</option>
+                        <option value="2" selected="">2 Adultos</option>
+                        <option value="3">3 Adultos</option>
+                        <option value="4">4 Adultos</option>
+                        <option value="5">5 Adultos</option>
+                        <option value="6">6+ Adultos</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label for="children">Crianças</label>
+                      <select class="form-select" id="children" name="children">
+                        <option value="0" selected="">Sem Crianças</option>
+                        <option value="1">1 Criança</option>
+                        <option value="2">2 Crianças</option>
+                        <option value="3">3 Crianças</option>
+                        <option value="4">4+ Crianças</option>
+                      </select>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="row mt-4">
+                  <div class="col-12">
+                    <div class="form-group">
+                      <label for="special-requests">Pedidos Especiais (Opcional)</label>
+                      <textarea class="form-control" id="special-requests" name="special_requests" rows="3" placeholder="Alguma necessidade especial, restrição alimentar ou preferência..."></textarea>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="booking-actions text-center">
+
+                  <button type="submit" class="btn btn-primary btn-lg">
+                    <i class="bi bi-search"></i>
+                    Verificar Disponibilidade &amp; Valores
+                  </button>
+
+                  <div class="booking-result mt-3" style="display:none;">
+                    <div class="alert alert-success" role="alert">
+                      Horário disponível! Prossiga para o pagamento.
+                    </div>
+                  </div>
+                </div>
+
+              </form>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+ <footer id="footer" class="footer position-relative dark-background">
+    
+      <div class="footer-top">
+        <div class="container">
+          <div class="row gy-4">
+            <div class="col-lg-4 col-md-6 footer-about">
+              <a th:href="@{index}" class="logo d-flex align-items-center">
+                <span class="sitename">Flor de Lótus</span>
+              </a>
+              <div class="footer-contact pt-3">
+                <p>Rua da Harmonia, 456</p>
+                <p>Nova Iguaçu, RJ 26020-000</p>
+                <p class="mt-3"><strong>Telefone:</strong> <span>+55 21 98765-4321</span></p>
+                <p><strong>Email:</strong> <span>contato@flordelotus.com</span></p>
+              </div>
+            </div>
+    
+            <div class="col-lg-2 col-md-3 footer-links">
+              <h4>Links Úteis</h4>
+              
+            </div>
+    
+            <div class="col-lg-2 col-md-3 footer-links">
+              <h4>Nossos Produtos</h4>
+             
+            </div>
+    
+            <div class="col-lg-2 col-md-3 footer-links">
+              <h4>Flor de Lótus</h4>
+              
+            </div>
+    
+            <div class="col-lg-2 col-md-3 footer-links">
+              <h4>Comunidade</h4>
+              
+            </div>
+    
+          </div>
+        </div>
+      </div>
+    
+      <div class="copyright text-center">
+        <div class="container d-flex flex-column flex-lg-row justify-content-center justify-content-lg-between align-items-center">
+    
+          <div class="d-flex flex-column align-items-center align-items-lg-start">
+            <div>
+              © Copyright <strong><span>Flor de Lótus</span></strong>. Todos os Direitos Reservados
+            </div>
+          
+          </div>
+    
+          <div class="social-links order-first order-lg-last mb-3 mb-lg-0">
+            <a href=""><i class="bi bi-twitter-x"></i></a>
+            <a href=""><i class="bi bi-facebook"></i></a>
+            <a href=""><i class="bi bi-instagram"></i></a>
+            <a href=""><i class="bi bi-linkedin"></i></a>
+          </div>
+    
+        </div>
+      </div>
+    
+    </footer>
+  <a href="#" class="scroll-top d-flex align-items-center justify-content-center">
+    <i class="bi bi-arrow-up-short"></i>
+  </a>
+
+  <div id="preloader"></div>
+
+
+  <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+  <script th:src="@{/vendor/swiper/swiper-bundle.min.js}"></script>
+  <script th:src="@{/vendor/glightbox/js/glightbox.min.js}"></script>
+  <script th:src="@{/vendor/drift-zoom/Drift.min.js}"></script>
+
+
+  <script th:src="@{/js/main.js}"></script>
+
+</body>
+
+</html>
