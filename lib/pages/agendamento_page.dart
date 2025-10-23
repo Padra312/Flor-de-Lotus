@@ -157,7 +157,6 @@ class _AgendamentoPageState extends State<AgendamentoPage> {
     return Column(
       children: [
         TextField(
-          controller: _nomeController,
           decoration: InputDecoration(
             labelText: 'Nome Completo',
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
@@ -165,7 +164,6 @@ class _AgendamentoPageState extends State<AgendamentoPage> {
         ),
         SizedBox(height: 12),
         TextField(
-          controller: _contatoController,
           decoration: InputDecoration(
             labelText: 'Endereço',
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
